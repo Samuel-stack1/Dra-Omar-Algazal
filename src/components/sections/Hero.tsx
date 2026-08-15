@@ -86,7 +86,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full bg-bg-main min-h-[100svh] lg:min-h-[640px] flex flex-col lg:flex-row lg:items-center pt-20 lg:pt-16 pb-8 lg:pb-0 overflow-hidden"
+      className="relative w-full bg-bg-main min-h-[100svh] lg:h-screen lg:min-h-[640px] flex flex-col lg:flex-row lg:items-center pt-20 lg:pt-16 pb-8 lg:pb-0 overflow-hidden"
     >
       {/* Delicate Liquid Silk Background */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
