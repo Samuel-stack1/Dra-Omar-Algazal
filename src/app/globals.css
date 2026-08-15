@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Mansory';
+  src: url('/Fonte/Mansory.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mansory';
+  src: url('/Fonte/Mansory Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@theme {
+  --color-primary-dark: #23304A; /* Somente para textos importantes e Logos */
+  --color-secondary-dark: #1A1D21; /* Textos comuns */
+  --color-accent: #A3804A; /* Dourado */
+  --color-accent-light: #C4A77D; /* Dourado Claro */
+  --color-neutral-gray: #ABA9A7;
+  --color-light-gray: #EAE8E3;
+  --color-bg-main: #FAF9F6; /* Fundo principal claro */
+  --color-bg-sand: #F4F1ED; /* Fundo alternativo areia */
+  
+  --font-heading: 'Mansory', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary-dark);
+    font-weight: 500;
+  }
+
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-secondary-dark);
+  }
+}
+
+/* Utilitários personalizados GSAP */
+.split-header, .split-paragraph {
+  opacity: 1;
+}

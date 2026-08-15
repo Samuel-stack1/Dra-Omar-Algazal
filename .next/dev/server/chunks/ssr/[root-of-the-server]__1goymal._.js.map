@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/samue/Documents/antigravity/DR%20OMAR%20ALGAZAL%20SITE/src/app/page.tsx"],"sourcesContent":["import Hero from '@/components/sections/Hero';\nimport AreasAtuacao from '@/components/sections/AreasAtuacao';\n\nexport default function Home() {\n  return (\n    <>\n      <Hero />\n      <AreasAtuacao />\n    </>\n  );\n}\n"],"names":["Home","Hero","AreasAtuacao"],"mappings":";;;;;;;;;;;;;;;;;;AAGe,SAASA;IACtB,qBACE;;0BACE,8OAACC;;;;;0BACD,8OAACC;;;;;;;;;;;AAGP"}}]
+}
