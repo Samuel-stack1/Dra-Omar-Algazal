@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const faqs = [
   {
     question: 'Vocês atendem por convênio médico?',
-    answer: 'Nosso atendimento é realizado na modalidade particular, garantindo consultas mais longas, detalhadas e sem a pressa imposta pelos planos de saúde. Fornecemos recibo para que você possa solicitar o reembolso junto ao seu convênio, de acordo com o seu plano.'
+    answer: 'Nosso atendimento é realizado na modalidade particular, garantindo consultas mais longas, detalhadas e sem a pressa imposta pelos planos de saúde. Emitimos nota fiscal e recibo para que você possa solicitar o reembolso junto ao seu convênio médico ou utilizar na dedução e restituição do seu Imposto de Renda anual.'
   },
   {
     question: 'Qual a duração média da primeira consulta?',
