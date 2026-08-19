@@ -149,7 +149,7 @@ export default function SobreMim() {
                 Minha trajetória na Medicina é pautada pelo compromisso com a excelência técnica, atualização científica contínua e compromisso ético. Como dermatologista, dedico-me ao diagnóstico e tratamento das doenças da pele, cabelos e unhas, conciliando a prática clínica com procedimentos dermatológicos e constante aperfeiçoamento profissional.
               </p>
               <p className="split-paragraph">
-                Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que ela deixe de ser um peso para o paciente.
+                Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que elas deixem de ser um peso para o paciente.
               </p>
               <p className="split-paragraph">
                 O cuidado estético é muito importante — sou entusiasta da cosmiatria, um dos pilares da atuação do dermatologista —, mas garantir a saúde da pele em todos os seus aspectos é o que nos torna médicos.
