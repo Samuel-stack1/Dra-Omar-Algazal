@@ -16,7 +16,7 @@ const areas = {
       {
         icon: Activity,
         title: 'Doenças de Pele',
-        content: 'Tratamento de acne, rosácea, psoríase, dermatites, vitiligo e outras condições inflamatórias ou autoimunes.'
+        content: 'Tratamento especializado de Psoríase, Hidradenite Supurativa, Dermatite Atópica, acne, rosácea, vitiligo e outras condições inflamatórias ou autoimunes.'
       },
       {
         icon: ShieldCheck,
