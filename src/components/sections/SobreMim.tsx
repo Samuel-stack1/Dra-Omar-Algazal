@@ -124,7 +124,7 @@ export default function SobreMim() {
                 <span className="text-accent text-4xl font-heading font-bold flex items-center">
                   +<span ref={el => { counterRefs.current[0] = el; }} data-target="10">0</span>
                 </span>
-                <span className="text-sm font-body text-secondary-dark mt-1 block">Anos de experiência</span>
+                <span className="text-sm font-body text-secondary-dark mt-1 block">Eventos de Atualização todos os anos</span>
               </div>
               <div className="border-t border-neutral-gray/30 pt-4">
                 <span className="text-accent text-4xl font-heading font-bold flex items-center">
