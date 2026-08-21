@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import prisma from '../../../lib/prisma';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
 
 // Dynamic Metadata
 export async function generateMetadata({ params }: { params: { slug: string } }) {

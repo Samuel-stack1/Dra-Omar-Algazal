@@ -36,7 +36,7 @@ const areas = {
             {
                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$activity$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Activity$3e$__["Activity"],
                 title: 'Doenças de Pele',
-                content: 'Tratamento de acne, rosácea, psoríase, dermatites, vitiligo e outras condições inflamatórias ou autoimunes.'
+                content: 'Tratamento especializado de Psoríase, Hidradenite Supurativa, Dermatite Atópica, acne, rosácea, vitiligo e outras condições inflamatórias ou autoimunes.'
             },
             {
                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2d$check$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShieldCheck$3e$__["ShieldCheck"],
@@ -1081,7 +1081,7 @@ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e
 const faqs = [
     {
         question: 'Vocês atendem por convênio médico?',
-        answer: 'Nosso atendimento é realizado na modalidade particular, garantindo consultas mais longas, detalhadas e sem a pressa imposta pelos planos de saúde. Fornecemos recibo para que você possa solicitar o reembolso junto ao seu convênio, de acordo com o seu plano.'
+        answer: 'Nosso atendimento é realizado na modalidade particular, garantindo consultas mais longas, detalhadas e sem a pressa imposta pelos planos de saúde. Emitimos nota fiscal e recibo para que você possa solicitar o reembolso junto ao seu convênio médico ou utilizar na dedução e restituição do seu Imposto de Renda anual.'
     },
     {
         question: 'Qual a duração média da primeira consulta?',
@@ -2499,7 +2499,7 @@ function SobreMim() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "text-sm font-body text-secondary-dark mt-1 block",
-                                                children: "Anos de experiência"
+                                                children: "Eventos de Atualização todos os anos"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/sections/SobreMim.tsx",
                                                 lineNumber: 127,
@@ -2594,7 +2594,7 @@ function SobreMim() {
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         className: "split-paragraph",
-                                        children: "Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que ela deixe de ser um peso para o paciente."
+                                        children: "Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que elas deixem de ser um peso para o paciente."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/SobreMim.tsx",
                                         lineNumber: 151,

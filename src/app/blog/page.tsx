@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import prisma from '../../lib/prisma';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export const metadata = {
   title: 'Blog | Dr. Omar Algazal',
@@ -10,20 +10,27 @@ export const metadata = {
 
 export default async function BlogPage() {
   // Fetch posts from database, ordered by publish date
-  const posts = await prisma.post.findMany({
-    orderBy: {
-      publishedAt: 'desc',
-    },
-    // We only need specific fields for the listing to save bandwidth
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      excerpt: true,
-      coverImage: true,
-      publishedAt: true,
-    }
-  });
+  let posts: any[] = [];
+  
+  try {
+    posts = await prisma.post.findMany({
+      orderBy: {
+        publishedAt: 'desc',
+      },
+      // We only need specific fields for the listing to save bandwidth
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        coverImage: true,
+        publishedAt: true,
+      }
+    });
+  } catch (error) {
+    console.error("Database connection failed. Showing empty blog state for preview.", error);
+    // Continue with empty posts array to show the UI
+  }
 
   return (
     <main className="min-h-screen bg-bg-main selection:bg-accent/20 selection:text-primary-dark">

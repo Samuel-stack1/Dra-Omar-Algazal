@@ -400,7 +400,7 @@ function SobreMim() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "text-sm font-body text-secondary-dark mt-1 block",
-                                                children: "Anos de experiência"
+                                                children: "Eventos de Atualização todos os anos"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/sections/SobreMim.tsx",
                                                 lineNumber: 127,
@@ -495,7 +495,7 @@ function SobreMim() {
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         className: "split-paragraph",
-                                        children: "Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que ela deixe de ser um peso para o paciente."
+                                        children: "Cada consulta representa uma oportunidade de apresentar a Dermatologia como uma especialidade ampla e complexa, estando presente para compreender a história do paciente até a chegada ao consultório, entendendo tratamentos anteriores e expectativas. Reconheço o impacto das doenças de pele na qualidade de vida e luto para que elas deixem de ser um peso para o paciente."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/SobreMim.tsx",
                                         lineNumber: 151,
