@@ -24,6 +24,7 @@ export default function Header() {
     { name: 'Início', href: '/' },
     { name: 'Sobre o Doutor', href: '/sobre' },
     { name: 'Procedimentos', href: '/procedimentos' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contato', href: '/contato' },
   ];
 

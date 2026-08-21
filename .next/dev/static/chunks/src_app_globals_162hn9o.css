@@ -4447,6 +4447,10 @@
       height: auto;
     }
 
+    .lg\:h-screen {
+      height: 100vh;
+    }
+
     .lg\:max-h-\[94vh\] {
       max-height: 94vh;
     }

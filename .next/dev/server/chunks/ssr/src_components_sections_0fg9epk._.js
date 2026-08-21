@@ -1596,7 +1596,7 @@ function Hero() {
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: containerRef,
-        className: "relative w-full bg-bg-main min-h-[100svh] lg:min-h-[640px] flex flex-col lg:flex-row lg:items-center pt-20 lg:pt-16 pb-8 lg:pb-0 overflow-hidden",
+        className: "relative w-full bg-bg-main min-h-[100svh] lg:h-screen lg:min-h-[640px] flex flex-col lg:flex-row lg:items-center pt-20 lg:pt-16 pb-8 lg:pb-0 overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 pointer-events-none z-0 overflow-hidden",
