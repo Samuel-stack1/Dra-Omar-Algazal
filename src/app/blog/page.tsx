@@ -8,6 +8,8 @@ export const metadata = {
   description: 'Artigos e novidades sobre dermatologia, saúde da pele e estética avançada.',
 };
 
+export const revalidate = 0; // Desativa o cache estático para mostrar os posts em tempo real
+
 export default async function BlogPage() {
   // Fetch posts from database, ordered by publish date
   let posts: any[] = [];

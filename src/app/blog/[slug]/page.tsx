@@ -18,6 +18,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
+export const revalidate = 0;
+
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = await prisma.post.findUnique({
     where: { slug: params.slug },
