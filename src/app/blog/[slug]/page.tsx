@@ -5,9 +5,10 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 
 // Dynamic Metadata
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
   const post = await prisma.post.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
   });
 
   if (!post) return { title: 'Artigo não encontrado' };
@@ -20,9 +21,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export const revalidate = 0;
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
   const post = await prisma.post.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
   });
 
   if (!post) {
