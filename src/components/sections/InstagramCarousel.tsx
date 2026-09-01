@@ -201,7 +201,6 @@ export default function InstagramCarouselSection({
                 src={activeModalReel.embedUrl}
                 title={activeModalReel.title}
                 className="w-full h-full border-0"
-                allowTransparency={true}
                 allow="encrypted-media"
               />
             </div>
