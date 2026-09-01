@@ -25,7 +25,7 @@ export default async function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#1A1D21',
+          backgroundColor: '#23304A',
           overflow: 'hidden',
         }}
       >

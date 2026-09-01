@@ -25,7 +25,9 @@ export default async function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'transparent',
+          backgroundColor: '#23304A', // Fundo azul marinho da marca
+          borderRadius: '50%',
+          overflow: 'hidden',
         }}
       >
         {logoBase64 ? (
