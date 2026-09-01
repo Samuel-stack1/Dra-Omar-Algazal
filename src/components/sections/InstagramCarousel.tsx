@@ -10,7 +10,16 @@ const InstagramIcon = ({ className = "w-4 h-4" }) => (
   </svg>
 );
 
-export default function InstagramCarouselSection() {
+interface InstagramPost {
+  id: string;
+  title: string;
+  tag: string;
+  image: string;
+  url: string;
+  embedUrl: string;
+}
+
+export default function InstagramCarouselSection({ posts = [] }: { posts?: InstagramPost[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeModalReel, setActiveModalReel] = useState<any>(null);
 
@@ -28,44 +37,10 @@ export default function InstagramCarouselSection() {
     );
   }, { scope: sectionRef });
 
-  // Exemplo de Reels
-  const reels = [
-    {
-      id: 'DbBkeQSjMuT',
-      title: 'A nova medicação e o cuidado humanizado',
-      tag: 'Dermatologia',
-      image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=300&h=533', // Substitua pelos seus caminhos de imagem
-      url: 'https://www.instagram.com/reel/DbBkeQSjMuT/',
-      embedUrl: 'https://www.instagram.com/reel/DbBkeQSjMuT/embed/',
-    },
-    {
-      id: 'Da0YeJ3DdyP',
-      title: 'Coisas óbvias para um dermatologista',
-      tag: 'Saúde & Hábitos',
-      image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300&h=533',
-      url: 'https://www.instagram.com/reel/Da0YeJ3DdyP/',
-      embedUrl: 'https://www.instagram.com/reel/Da0YeJ3DdyP/embed/',
-    },
-    {
-      id: 'DavN99IFSDf',
-      title: 'Tratamentos modernos e medicina séria',
-      tag: 'Estética',
-      image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=300&h=533',
-      url: 'https://www.instagram.com/reel/DavN99IFSDf/',
-      embedUrl: 'https://www.instagram.com/reel/DavN99IFSDf/embed/',
-    },
-    {
-      id: 'Danep4Kj2-B',
-      title: 'Rotina de cuidados com a pele em casa',
-      tag: 'Estilo de Vida',
-      image: 'https://images.unsplash.com/photo-1522845015757-50bce044e5da?auto=format&fit=crop&q=80&w=300&h=533',
-      url: 'https://www.instagram.com/reel/Danep4Kj2-B/',
-      embedUrl: 'https://www.instagram.com/reel/Danep4Kj2-B/embed/',
-    }
-  ];
+  if (!posts || posts.length === 0) return null;
 
   // Quadruplicamos a lista para o efeito de rolagem infinita contínua
-  const infiniteReels = [...reels, ...reels, ...reels, ...reels];
+  const infiniteReels = [...posts, ...posts, ...posts, ...posts];
 
   return (
     <section ref={sectionRef} className="py-20 sm:py-28 bg-bg-main relative overflow-hidden">
