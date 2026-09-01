@@ -7,7 +7,7 @@ export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
 
 export default async function AppleIcon() {
-  const logoPath = join(process.cwd(), 'public', 'Símbolo-48.png');
+  const logoPath = join(process.cwd(), 'public', 'Símbolo-49.png');
   let logoBase64 = '';
   try {
     const logoData = await readFile(logoPath);
