@@ -28,6 +28,7 @@ export default async function Home() {
           image: post.thumbnailUrl || post.sizes?.large?.mediaUrl || post.mediaUrl,
           url: post.permalink,
           embedUrl: post.permalink + 'embed/',
+          videoUrl: post.mediaType === 'VIDEO' ? post.mediaUrl : null,
         }));
       }
     }

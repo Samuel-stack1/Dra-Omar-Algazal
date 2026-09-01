@@ -17,6 +17,7 @@ interface InstagramPost {
   image: string;
   url: string;
   embedUrl: string;
+  videoUrl?: string;
 }
 
 export default function InstagramCarouselSection({ 
@@ -27,7 +28,7 @@ export default function InstagramCarouselSection({
   profilePictureUrl?: string 
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeModalReel, setActiveModalReel] = useState<any>(null);
+  const [activeVideoIdx, setActiveVideoIdx] = useState<number | null>(null);
 
   useGSAP(() => {
     gsap.fromTo('.reels-header',
@@ -64,7 +65,8 @@ export default function InstagramCarouselSection({
           animation: marqueeSeamless 45s linear infinite;
           will-change: transform;
         }
-        .reels-marquee-track:hover {
+        .reels-marquee-track:hover,
+        .reels-marquee-track.is-playing {
           animation-play-state: paused;
         }
       `}</style>
@@ -74,7 +76,7 @@ export default function InstagramCarouselSection({
         <div className="reels-header flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/dr.omaralgazal"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary-dark/10 hover:bg-primary-dark/20 border border-primary-dark/20 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-primary-dark transition-all mb-3"
@@ -93,7 +95,7 @@ export default function InstagramCarouselSection({
 
           <div>
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/dr.omaralgazal"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary-dark hover:bg-accent text-white px-5 py-3 rounded-full text-xs font-medium transition-all shadow-md hover:shadow-lg"
@@ -113,118 +115,113 @@ export default function InstagramCarouselSection({
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
         }}
       >
-        <div className="reels-marquee-track py-4">
-          {infiniteReels.map((reel, idx) => (
-            <div
-              key={`${reel.id}-${idx}`}
-              onClick={() => setActiveModalReel(reel)}
-              className="shrink-0 w-64 sm:w-72 aspect-[9/16] rounded-3xl overflow-hidden relative shadow-xl hover:shadow-2xl border border-primary-dark/15 group cursor-pointer transition-all duration-300 transform hover:-translate-y-1.5"
-            >
-              <img
-                src={reel.image}
-                alt={reel.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+        <div className={`reels-marquee-track py-4 ${activeVideoIdx !== null ? 'is-playing' : ''}`}>
+          {infiniteReels.map((reel, idx) => {
+            const isPlaying = activeVideoIdx === idx;
+            
+            return (
+              <div
+                key={`${reel.id}-${idx}`}
+                onClick={() => {
+                  // If it's a video and not playing, play it
+                  if (reel.videoUrl && !isPlaying) {
+                    setActiveVideoIdx(idx);
+                  } else if (!reel.videoUrl) {
+                    // If it's an image, just open instagram in new tab
+                    window.open(reel.url, '_blank');
+                  }
+                }}
+                className={`shrink-0 w-64 sm:w-72 aspect-[9/16] rounded-3xl overflow-hidden relative shadow-xl hover:shadow-2xl border border-primary-dark/15 group transition-all duration-300 transform ${isPlaying ? 'scale-105 shadow-2xl z-20 cursor-default' : 'hover:-translate-y-1.5 cursor-pointer z-10'}`}
+              >
+                {isPlaying && reel.videoUrl ? (
+                  <video
+                    src={reel.videoUrl}
+                    autoPlay
+                    controls
+                    className="w-full h-full object-cover"
+                    onEnded={() => setActiveVideoIdx(null)}
+                  />
+                ) : (
+                  <img
+                    src={reel.image}
+                    alt={reel.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
 
-              {/* Barra superior estilo Instagram */}
-              <div className="absolute top-0 inset-x-0 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between z-10">
-                <div className="flex items-center gap-2">
-                  {profilePictureUrl ? (
-                    <img src={profilePictureUrl} alt="Dr Omar" className="w-6 h-6 rounded-full border border-white/40 object-cover" />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full border border-white/40 bg-white" />
-                  )}
-                  <span className="text-white text-xs font-semibold drop-shadow">
-                    dr.omaralgazal
-                  </span>
-                </div>
-                <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-                  REELS
-                </span>
+                {/* Overlays - Hide when playing video */}
+                {!isPlaying && (
+                  <>
+                    {/* Barra superior estilo Instagram */}
+                    <div className="absolute top-0 inset-x-0 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between z-10">
+                      <div className="flex items-center gap-2">
+                        {profilePictureUrl ? (
+                          <img src={profilePictureUrl} alt="Dr Omar" className="w-6 h-6 rounded-full border border-white/40 object-cover" />
+                        ) : (
+                          <div className="w-6 h-6 rounded-full border border-white/40 bg-white" />
+                        )}
+                        <span className="text-white text-xs font-semibold drop-shadow">
+                          dr.omaralgazal
+                        </span>
+                      </div>
+                      <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+                        {reel.tag}
+                      </span>
+                    </div>
+
+                    {/* Botão de Play Central (somente se for video) */}
+                    {reel.tag === 'REEL' && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10">
+                        <div className="w-14 h-14 rounded-full bg-black/40 group-hover:bg-accent text-white flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-all shadow-xl border border-white/20">
+                          <Play className="w-6 h-6 fill-white translate-x-0.5" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Legenda e Ação no rodapé */}
+                    <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white space-y-2 z-10">
+                      <span className="inline-block bg-accent text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-white">
+                        {reel.tag === 'REEL' ? 'Dermatologia' : 'Post'}
+                      </span>
+
+                      <p className="text-xs sm:text-sm font-medium leading-snug line-clamp-2 text-white/95 font-body">
+                        {reel.title}
+                      </p>
+
+                      <div className="flex items-center justify-between text-[11px] text-white/80 pt-2 border-t border-white/15 font-semibold">
+                        <span className="flex items-center gap-1.5 text-white">
+                          {reel.tag === 'REEL' ? (
+                            <>
+                              <Play className="w-3.5 h-3.5 fill-accent text-accent" />
+                              <span>Dar Play no Site</span>
+                            </>
+                          ) : (
+                            <>
+                              <InstagramIcon className="w-3.5 h-3.5 text-accent" />
+                              <span>Ver no Instagram</span>
+                            </>
+                          )}
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </div>
+                    </div>
+                  </>
+                )}
+                
+                {/* Botão para fechar o vídeo sem esperar acabar */}
+                {isPlaying && (
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); setActiveVideoIdx(null); }}
+                    className="absolute top-4 right-4 z-30 bg-black/60 hover:bg-accent text-white p-2 rounded-full backdrop-blur-md transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
-
-              {/* Botão de Play Central */}
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="w-14 h-14 rounded-full bg-black/40 group-hover:bg-accent text-white flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-all shadow-xl border border-white/20">
-                  <Play className="w-6 h-6 fill-white translate-x-0.5" />
-                </div>
-              </div>
-
-              {/* Legenda e Ação no rodapé */}
-              <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white space-y-2 z-10">
-                <span className="inline-block bg-accent text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-white">
-                  {reel.tag}
-                </span>
-
-                <p className="text-xs sm:text-sm font-medium leading-snug line-clamp-2 text-white/95 font-body">
-                  {reel.title}
-                </p>
-
-                <div className="flex items-center justify-between text-[11px] text-white/80 pt-2 border-t border-white/15 font-semibold">
-                  <span className="flex items-center gap-1.5 text-white">
-                    <Play className="w-3.5 h-3.5 fill-accent text-accent" />
-                    <span>Dar Play no Site</span>
-                  </span>
-                  <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
-
-      {/* Modal para tocar o vídeo diretamente no site */}
-      {activeModalReel && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="relative w-full max-w-sm bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/20">
-            
-            <div className="p-4 bg-primary-dark text-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Film className="w-4 h-4 text-accent" />
-                <span className="text-xs font-semibold uppercase tracking-wider">
-                  Tocando Reels
-                </span>
-              </div>
-
-              <button
-                onClick={() => setActiveModalReel(null)}
-                className="p-1 rounded-full hover:bg-white/20 text-white transition-colors cursor-pointer"
-                aria-label="Fechar"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Iframe do Instagram */}
-            <div className="relative w-full h-[520px] bg-black flex items-center justify-center overflow-hidden">
-              <iframe
-                src={activeModalReel.embedUrl}
-                title={activeModalReel.title}
-                className="w-full h-full border-0"
-                allow="encrypted-media"
-              />
-            </div>
-
-            <div className="p-4 bg-white flex items-center justify-between border-t border-neutral-gray/10">
-              <span className="text-xs text-secondary-dark font-medium truncate max-w-[200px] font-body">
-                {activeModalReel.title}
-              </span>
-
-              <a
-                href={activeModalReel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-primary-dark hover:bg-accent text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition-all shrink-0"
-              >
-                <span>Instagram</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-          </div>
-        </div>
-      )}
-
     </section>
   );
 }
