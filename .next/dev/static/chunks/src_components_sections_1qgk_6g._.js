@@ -2033,7 +2033,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: "https://www.instagram.com/dr.omaralgazal",
+                                    href: "https://www.instagram.com/omaralgazal.dermato",
                                     target: "_blank",
                                     rel: "noopener noreferrer",
                                     className: "inline-flex items-center gap-2 bg-primary-dark/10 hover:bg-primary-dark/20 border border-primary-dark/20 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-primary-dark transition-all mb-3",
@@ -2046,7 +2046,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            children: "@dr.omaralgazal • Reels Oficiais"
+                                            children: "@omaralgazal.dermato • Reels Oficiais"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
                                             lineNumber: 129,
@@ -2082,7 +2082,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                href: "https://www.instagram.com/dr.omaralgazal",
+                                href: "https://www.instagram.com/omaralgazal.dermato",
                                 target: "_blank",
                                 rel: "noopener noreferrer",
                                 className: "inline-flex items-center gap-2 bg-primary-dark hover:bg-accent text-white px-5 py-3 rounded-full text-xs font-medium transition-all shadow-md hover:shadow-lg",
@@ -2202,7 +2202,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "text-white text-xs font-semibold drop-shadow",
-                                                            children: "dr.omaralgazal"
+                                                            children: "omaralgazal.dermato"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
                                                             lineNumber: 219,

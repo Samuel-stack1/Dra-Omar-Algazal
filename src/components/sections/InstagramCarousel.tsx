@@ -120,13 +120,13 @@ export default function InstagramCarouselSection({
         <div className="reels-header flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <a
-              href="https://www.instagram.com/dr.omaralgazal"
+              href="https://www.instagram.com/omaralgazal.dermato"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary-dark/10 hover:bg-primary-dark/20 border border-primary-dark/20 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-primary-dark transition-all mb-3"
             >
               <Film className="w-4 h-4 text-accent" />
-              <span>@dr.omaralgazal • Reels Oficiais</span>
+              <span>@omaralgazal.dermato • Reels Oficiais</span>
             </a>
             
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-light text-primary-dark tracking-tight">
@@ -139,7 +139,7 @@ export default function InstagramCarouselSection({
 
           <div>
             <a
-              href="https://www.instagram.com/dr.omaralgazal"
+              href="https://www.instagram.com/omaralgazal.dermato"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary-dark hover:bg-accent text-white px-5 py-3 rounded-full text-xs font-medium transition-all shadow-md hover:shadow-lg"
@@ -217,7 +217,7 @@ export default function InstagramCarouselSection({
                           <div className="w-6 h-6 rounded-full border border-white/40 bg-white" />
                         )}
                         <span className="text-white text-xs font-semibold drop-shadow">
-                          dr.omaralgazal
+                          omaralgazal.dermato
                         </span>
                       </div>
                       <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
