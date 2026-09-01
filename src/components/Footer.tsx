@@ -53,13 +53,7 @@ export default function Footer() {
               <li className="flex items-center">
                 <Phone size={18} className="text-accent mr-3 flex-shrink-0" />
                 <span className="font-body text-sm text-light-gray">
-                  (17) 99999-9999
-                </span>
-              </li>
-              <li className="flex items-center">
-                <Mail size={18} className="text-accent mr-3 flex-shrink-0" />
-                <span className="font-body text-sm text-light-gray">
-                  contato@dromaralgazal.com.br
+                  (17) 99228-5084
                 </span>
               </li>
             </ul>

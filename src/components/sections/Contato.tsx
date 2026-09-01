@@ -56,7 +56,7 @@ export default function Contato() {
               </p>
 
               <a 
-                href="https://wa.me/5517999999999" 
+                href="https://wa.me/5517992285084" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full py-4 bg-primary-dark text-white rounded-full font-body text-[11px] md:text-xs tracking-[0.15em] uppercase hover:bg-accent transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-3 group"
