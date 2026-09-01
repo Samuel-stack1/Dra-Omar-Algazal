@@ -25,7 +25,8 @@ export default async function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#1A1D21',
+          backgroundColor: 'white',
+          borderRadius: '50%',
           overflow: 'hidden',
         }}
       >
@@ -36,7 +37,7 @@ export default async function AppleIcon() {
               width: '100%', 
               height: '100%', 
               objectFit: 'contain',
-              transform: 'scale(1.8)'
+              transform: 'scale(1.4)'
             }} 
           />
         ) : (

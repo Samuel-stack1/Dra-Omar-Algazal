@@ -25,7 +25,8 @@ export default async function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#1A1D21', // Fundo escuro para combinar com o site
+          backgroundColor: 'white',
+          borderRadius: '50%',
           overflow: 'hidden',
         }}
       >
@@ -36,7 +37,7 @@ export default async function Icon() {
               width: '100%', 
               height: '100%', 
               objectFit: 'contain',
-              transform: 'scale(1.8)'
+              transform: 'scale(1.4)'
             }} 
           />
         ) : (
