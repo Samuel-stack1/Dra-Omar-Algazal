@@ -11,11 +11,15 @@ export const revalidate = 86400; // Cache for 24 hours to stay within Behold API
 
 export default async function Home() {
   let instagramPosts = [];
+  let profilePictureUrl = "";
 
   try {
     const res = await fetch('https://feeds.behold.so/pb1uleK39vkTEyv9OYUj');
     if (res.ok) {
       const data = await res.json();
+      if (data && data.profilePictureUrl) {
+        profilePictureUrl = data.profilePictureUrl;
+      }
       if (data && data.posts) {
         instagramPosts = data.posts.map((post: any) => ({
           id: post.id,
@@ -38,7 +42,7 @@ export default async function Home() {
       <Filosofia />
       <Diferenciais />
       <AreasAtuacao />
-      <InstagramCarouselSection posts={instagramPosts} />
+      <InstagramCarouselSection posts={instagramPosts} profilePictureUrl={profilePictureUrl} />
       <FAQ />
       <Contato />
     </>

@@ -19,7 +19,13 @@ interface InstagramPost {
   embedUrl: string;
 }
 
-export default function InstagramCarouselSection({ posts = [] }: { posts?: InstagramPost[] }) {
+export default function InstagramCarouselSection({ 
+  posts = [], 
+  profilePictureUrl = "" 
+}: { 
+  posts?: InstagramPost[],
+  profilePictureUrl?: string 
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeModalReel, setActiveModalReel] = useState<any>(null);
 
@@ -123,7 +129,11 @@ export default function InstagramCarouselSection({ posts = [] }: { posts?: Insta
               {/* Barra superior estilo Instagram */}
               <div className="absolute top-0 inset-x-0 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between z-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full border border-white/40 bg-white" />
+                  {profilePictureUrl ? (
+                    <img src={profilePictureUrl} alt="Dr Omar" className="w-6 h-6 rounded-full border border-white/40 object-cover" />
+                  ) : (
+                    <div className="w-6 h-6 rounded-full border border-white/40 bg-white" />
+                  )}
                   <span className="text-white text-xs font-semibold drop-shadow">
                     dr.omaralgazal
                   </span>
