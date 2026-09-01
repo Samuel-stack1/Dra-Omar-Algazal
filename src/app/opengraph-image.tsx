@@ -1,11 +1,23 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const alt = 'Dr. Omar Algazal - Dermatologista';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  // Ler a imagem do logo para base64
+  const logoPath = join(process.cwd(), 'src', 'app', 'icon.png');
+  let logoBase64 = '';
+  try {
+    const logoData = await readFile(logoPath);
+    logoBase64 = `data:image/png;base64,${logoData.toString('base64')}`;
+  } catch (e) {
+    console.error('Error loading logo for OG image');
+  }
+
   return new ImageResponse(
     (
       <div
@@ -16,33 +28,21 @@ export default function OpenGraphImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#1A1D21',
+          backgroundColor: '#1A1D21', // Fundo escuro premium
           color: 'white',
           padding: '40px',
         }}
       >
-        <div
-          style={{
-            border: '4px solid #A3804A',
-            borderRadius: '50%',
-            width: '180px',
-            height: '180px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '100px',
-            color: '#A3804A',
-            fontWeight: 'bold',
-            fontFamily: 'Georgia, serif',
-            marginBottom: '40px',
-          }}
-        >
-          O
-        </div>
-        <div style={{ fontSize: '72px', fontWeight: 'bold', marginBottom: '20px', color: '#D4C5B0' }}>
+        {logoBase64 ? (
+          <img src={logoBase64} alt="Logo" width={180} height={180} style={{ marginBottom: '40px', objectFit: 'contain' }} />
+        ) : (
+          <div style={{ width: 180, height: 180, border: '4px solid #A3804A', borderRadius: '50%', marginBottom: '40px' }} />
+        )}
+        
+        <div style={{ fontSize: '72px', fontWeight: 'bold', marginBottom: '20px', color: '#D4C5B0', fontFamily: 'serif' }}>
           Dr. Omar Algazal
         </div>
-        <div style={{ fontSize: '36px', color: '#A8A8A8' }}>
+        <div style={{ fontSize: '36px', color: '#A8A8A8', fontWeight: 'normal' }}>
           Dermatologia Médica & Cosmiatria
         </div>
         <div style={{ fontSize: '28px', color: '#A3804A', marginTop: '30px' }}>
