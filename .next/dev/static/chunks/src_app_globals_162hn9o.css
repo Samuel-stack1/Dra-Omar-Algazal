@@ -13,6 +13,9 @@
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-pan-x: initial;
+      --tw-pan-y: initial;
+      --tw-pinch-zoom: initial;
       --tw-space-y-reverse: 0;
       --tw-space-x-reverse: 0;
       --tw-divide-x-reverse: 0;
@@ -2140,6 +2143,10 @@
     cursor: default;
   }
 
+  .cursor-grab {
+    cursor: grab;
+  }
+
   .cursor-not-allowed {
     cursor: not-allowed;
   }
@@ -2150,6 +2157,11 @@
 
   .cursor-wait {
     cursor: wait;
+  }
+
+  .touch-pan-x {
+    --tw-pan-x: pan-x;
+    touch-action: var(--tw-pan-x, ) var(--tw-pan-y, ) var(--tw-pinch-zoom, );
   }
 
   .resize {
@@ -4774,6 +4786,10 @@
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
 
+  .active\:cursor-grabbing:active {
+    cursor: grabbing;
+  }
+
   .active\:border:active {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -5786,6 +5802,21 @@
 }
 
 @property --tw-skew-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-pan-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-pan-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-pinch-zoom {
   syntax: "*";
   inherits: false
 }

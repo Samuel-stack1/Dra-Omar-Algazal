@@ -1822,7 +1822,14 @@ const InstagramIcon = ({ className = "w-4 h-4" })=>/*#__PURE__*/ (0, __TURBOPACK
     }, ("TURBOPACK compile-time value", void 0));
 function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
     const sectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const trackRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [activeVideoIdx, setActiveVideoIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Drag & Scroll State
+    const [isHovered, setIsHovered] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isDragging, setIsDragging] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const startX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    const scrollLeft = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    const isDragged = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useGSAP"])(()=>{
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo('.reels-header', {
             y: 35,
@@ -1842,6 +1849,47 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
     }, {
         scope: sectionRef
     });
+    // Auto-scroll loop
+    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].useEffect(()=>{
+        let animationFrameId;
+        const track = trackRef.current;
+        if (!track) return;
+        const scroll = ()=>{
+            // Pause if hovered, playing video, or dragging
+            if (!isHovered && activeVideoIdx === null && !isDragging) {
+                track.scrollLeft += 1;
+                // Infinite loop: if we scroll past half the duplicated content, reset back seamlessly
+                if (track.scrollLeft >= track.scrollWidth / 2) {
+                    track.scrollLeft -= track.scrollWidth / 4;
+                }
+            }
+            animationFrameId = requestAnimationFrame(scroll);
+        };
+        animationFrameId = requestAnimationFrame(scroll);
+        return ()=>cancelAnimationFrame(animationFrameId);
+    }, [
+        isHovered,
+        activeVideoIdx,
+        isDragging
+    ]);
+    const handleMouseDown = (e)=>{
+        if (!trackRef.current) return;
+        setIsDragging(true);
+        isDragged.current = false;
+        startX.current = e.pageX - trackRef.current.offsetLeft;
+        scrollLeft.current = trackRef.current.scrollLeft;
+    };
+    const handleMouseMove = (e)=>{
+        if (!isDragging || !trackRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - trackRef.current.offsetLeft;
+        const walk = (x - startX.current) * 2;
+        if (Math.abs(walk) > 5) isDragged.current = true;
+        trackRef.current.scrollLeft = scrollLeft.current - walk;
+    };
+    const handleMouseUpOrLeave = ()=>{
+        setIsDragging(false);
+    };
     if (!posts || posts.length === 0) return null;
     // Quadruplicamos a lista para o efeito de rolagem infinita contínua
     const infiniteReels = [
@@ -1856,25 +1904,17 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
                 children: `
-        @keyframes marqueeSeamless {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-25%); }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        .reels-marquee-track {
-          display: flex;
-          gap: 1.5rem;
-          width: max-content;
-          animation: marqueeSeamless 45s linear infinite;
-          will-change: transform;
-        }
-        .reels-marquee-track:hover,
-        .reels-marquee-track.is-playing {
-          animation-play-state: paused;
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                lineNumber: 56,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1894,20 +1934,20 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                             className: "w-4 h-4 text-accent"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                            lineNumber: 84,
+                                            lineNumber: 128,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "@dr.omaralgazal • Reels Oficiais"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                            lineNumber: 85,
+                                            lineNumber: 129,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 78,
+                                    lineNumber: 122,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1915,21 +1955,21 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                     children: "Acompanhe no Instagram"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 132,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "mt-2 text-base text-secondary-dark/75 font-body max-w-xl",
-                                    children: "Passe o mouse para pausar ou clique em qualquer Reel para assistir diretamente no site."
+                                    children: "Arraste para os lados, passe o mouse para pausar ou clique em qualquer Reel para assistir diretamente no site."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 135,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                            lineNumber: 77,
+                            lineNumber: 121,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1943,50 +1983,63 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                         className: "w-4 h-4 text-white"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 147,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Ver Todos no Instagram"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                        lineNumber: 104,
+                                        lineNumber: 148,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                lineNumber: 97,
+                                lineNumber: 141,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                            lineNumber: 96,
+                            lineNumber: 140,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                    lineNumber: 76,
+                    lineNumber: 120,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                lineNumber: 75,
+                lineNumber: 119,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-full overflow-hidden relative",
+                className: "w-full relative",
                 style: {
                     maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
                     WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)'
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: `reels-marquee-track py-4 ${activeVideoIdx !== null ? 'is-playing' : ''}`,
+                    ref: trackRef,
+                    className: `hide-scrollbar flex gap-6 py-4 overflow-x-auto touch-pan-x select-none cursor-grab active:cursor-grabbing`,
+                    onMouseEnter: ()=>setIsHovered(true),
+                    onMouseLeave: ()=>{
+                        setIsHovered(false);
+                        handleMouseUpOrLeave();
+                    },
+                    onMouseDown: handleMouseDown,
+                    onMouseUp: handleMouseUpOrLeave,
+                    onMouseMove: handleMouseMove,
                     children: infiniteReels.map((reel, idx)=>{
                         const isPlaying = activeVideoIdx === idx;
                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            onClick: ()=>{
+                            onClick: (e)=>{
+                                if (isDragged.current) {
+                                    e.preventDefault();
+                                    return;
+                                }
                                 // If it's a video and not playing, play it
                                 if (reel.videoUrl && !isPlaying) {
                                     setActiveVideoIdx(idx);
@@ -2005,7 +2058,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                     onEnded: ()=>setActiveVideoIdx(null)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 193,
                                     columnNumber: 19
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: reel.image,
@@ -2013,7 +2066,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                     className: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 145,
+                                    lineNumber: 201,
                                     columnNumber: 19
                                 }, this),
                                 !isPlaying && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -2030,13 +2083,13 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                             className: "w-6 h-6 rounded-full border border-white/40 object-cover"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                            lineNumber: 159,
+                                                            lineNumber: 215,
                                                             columnNumber: 27
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-6 h-6 rounded-full border border-white/40 bg-white"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                            lineNumber: 161,
+                                                            lineNumber: 217,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2044,13 +2097,13 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                             children: "dr.omaralgazal"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                            lineNumber: 163,
+                                                            lineNumber: 219,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 213,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2058,13 +2111,13 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                     children: reel.tag
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 167,
+                                                    lineNumber: 223,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                            lineNumber: 156,
+                                            lineNumber: 212,
                                             columnNumber: 21
                                         }, this),
                                         reel.tag === 'REEL' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2075,17 +2128,17 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                     className: "w-6 h-6 fill-white translate-x-0.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 176,
+                                                    lineNumber: 232,
                                                     columnNumber: 27
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                lineNumber: 175,
+                                                lineNumber: 231,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 230,
                                             columnNumber: 23
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2096,7 +2149,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                     children: reel.tag === 'REEL' ? 'Dermatologia' : 'Post'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 183,
+                                                    lineNumber: 239,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2104,7 +2157,7 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                     children: reel.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 243,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2118,20 +2171,20 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                                         className: "w-3.5 h-3.5 fill-accent text-accent"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                        lineNumber: 195,
+                                                                        lineNumber: 251,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: "Dar Play no Site"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                        lineNumber: 196,
+                                                                        lineNumber: 252,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                lineNumber: 194,
+                                                                lineNumber: 250,
                                                                 columnNumber: 29
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                                 children: [
@@ -2139,50 +2192,50 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                                                         className: "w-3.5 h-3.5 text-accent"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                        lineNumber: 200,
+                                                                        lineNumber: 256,
                                                                         columnNumber: 31
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: "Ver no Instagram"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                        lineNumber: 201,
+                                                                        lineNumber: 257,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                                lineNumber: 199,
+                                                                lineNumber: 255,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                            lineNumber: 192,
+                                                            lineNumber: 248,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$external$2d$link$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ExternalLink$3e$__["ExternalLink"], {
                                                             className: "w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                            lineNumber: 205,
+                                                            lineNumber: 261,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                                    lineNumber: 191,
+                                                    lineNumber: 247,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                            lineNumber: 182,
+                                            lineNumber: 238,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 154,
+                                    lineNumber: 210,
                                     columnNumber: 19
                                 }, this),
                                 isPlaying && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2195,35 +2248,35 @@ function InstagramCarouselSection({ posts = [], profilePictureUrl = "" }) {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                        lineNumber: 217,
+                                        lineNumber: 273,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                                    lineNumber: 213,
+                                    lineNumber: 269,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, `${reel.id}-${idx}`, true, {
                             fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                            lineNumber: 123,
+                            lineNumber: 175,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                    lineNumber: 118,
+                    lineNumber: 162,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-                lineNumber: 111,
+                lineNumber: 155,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/sections/InstagramCarousel.tsx",
-        lineNumber: 53,
+        lineNumber: 105,
         columnNumber: 5
     }, this);
 }

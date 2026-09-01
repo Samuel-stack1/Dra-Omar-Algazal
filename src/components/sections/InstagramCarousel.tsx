@@ -28,7 +28,15 @@ export default function InstagramCarouselSection({
   profilePictureUrl?: string 
 }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [activeVideoIdx, setActiveVideoIdx] = useState<number | null>(null);
+
+  // Drag & Scroll State
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const isDragged = useRef(false);
 
   useGSAP(() => {
     gsap.fromTo('.reels-header',
@@ -44,6 +52,50 @@ export default function InstagramCarouselSection({
     );
   }, { scope: sectionRef });
 
+  // Auto-scroll loop
+  React.useEffect(() => {
+    let animationFrameId: number;
+    const track = trackRef.current;
+    if (!track) return;
+
+    const scroll = () => {
+      // Pause if hovered, playing video, or dragging
+      if (!isHovered && activeVideoIdx === null && !isDragging) {
+        track.scrollLeft += 1;
+        
+        // Infinite loop: if we scroll past half the duplicated content, reset back seamlessly
+        if (track.scrollLeft >= track.scrollWidth / 2) {
+          track.scrollLeft -= track.scrollWidth / 4;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+    
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isHovered, activeVideoIdx, isDragging]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!trackRef.current) return;
+    setIsDragging(true);
+    isDragged.current = false;
+    startX.current = e.pageX - trackRef.current.offsetLeft;
+    scrollLeft.current = trackRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !trackRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - trackRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2;
+    if (Math.abs(walk) > 5) isDragged.current = true;
+    trackRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    setIsDragging(false);
+  };
+
   if (!posts || posts.length === 0) return null;
 
   // Quadruplicamos a lista para o efeito de rolagem infinita contínua
@@ -52,22 +104,14 @@ export default function InstagramCarouselSection({
   return (
     <section ref={sectionRef} className="py-20 sm:py-28 bg-bg-main relative overflow-hidden">
       
-      {/* Inline Styles para o Marquee Contínuo */}
+      {/* Hide Scrollbar Styles */}
       <style>{`
-        @keyframes marqueeSeamless {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-25%); }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        .reels-marquee-track {
-          display: flex;
-          gap: 1.5rem;
-          width: max-content;
-          animation: marqueeSeamless 45s linear infinite;
-          will-change: transform;
-        }
-        .reels-marquee-track:hover,
-        .reels-marquee-track.is-playing {
-          animation-play-state: paused;
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -89,7 +133,7 @@ export default function InstagramCarouselSection({
               Acompanhe no Instagram
             </h2>
             <p className="mt-2 text-base text-secondary-dark/75 font-body max-w-xl">
-              Passe o mouse para pausar ou clique em qualquer Reel para assistir diretamente no site.
+              Arraste para os lados, passe o mouse para pausar ou clique em qualquer Reel para assistir diretamente no site.
             </p>
           </div>
 
@@ -109,20 +153,32 @@ export default function InstagramCarouselSection({
 
       {/* Container do Carrossel com efeito de "fade" nas bordas */}
       <div
-        className="w-full overflow-hidden relative"
+        className="w-full relative"
         style={{
           maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
         }}
       >
-        <div className={`reels-marquee-track py-4 ${activeVideoIdx !== null ? 'is-playing' : ''}`}>
+        <div 
+          ref={trackRef}
+          className={`hide-scrollbar flex gap-6 py-4 overflow-x-auto touch-pan-x select-none cursor-grab active:cursor-grabbing`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => { setIsHovered(false); handleMouseUpOrLeave(); }}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseMove={handleMouseMove}
+        >
           {infiniteReels.map((reel, idx) => {
             const isPlaying = activeVideoIdx === idx;
             
             return (
               <div
                 key={`${reel.id}-${idx}`}
-                onClick={() => {
+                onClick={(e) => {
+                  if (isDragged.current) {
+                    e.preventDefault();
+                    return;
+                  }
                   // If it's a video and not playing, play it
                   if (reel.videoUrl && !isPlaying) {
                     setActiveVideoIdx(idx);
