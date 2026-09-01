@@ -7,7 +7,7 @@ export const size = { width: 32, height: 32 };
 export const contentType = 'image/png';
 
 export default async function Icon() {
-  const logoPath = join(process.cwd(), 'public', 'Símbolo-49.png');
+  const logoPath = join(process.cwd(), 'public', 'Símbolo-48-removebg-preview.png');
   let logoBase64 = '';
   try {
     const logoData = await readFile(logoPath);
@@ -25,9 +25,7 @@ export default async function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'white',
-          borderRadius: '50%',
-          overflow: 'hidden',
+          backgroundColor: 'transparent',
         }}
       >
         {logoBase64 ? (

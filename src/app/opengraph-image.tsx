@@ -9,7 +9,7 @@ export const contentType = 'image/png';
 
 export default async function OpenGraphImage() {
   // Ler a imagem do logo para base64
-  const logoPath = join(process.cwd(), 'public', 'Símbolo-49.png');
+  const logoPath = join(process.cwd(), 'public', 'Símbolo-48-removebg-preview.png');
   let logoBase64 = '';
   try {
     const logoData = await readFile(logoPath);
