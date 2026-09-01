@@ -385,8 +385,58 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Floatin
 ;
 ;
 const metadata = {
-    title: 'Dr. Omar Algazal - Dermatologista',
-    description: 'Dermatologia Médica & Cosmiatria'
+    title: {
+        template: '%s | Dr. Omar Algazal',
+        default: 'Dr. Omar Algazal - Dermatologista em São José do Rio Preto'
+    },
+    description: 'Médico Dermatologista Especialista em Psoríase, Dermatite Atópica, Hidradenite e Cosmiatria Avançada no Espaço Honos em São José do Rio Preto - SP.',
+    keywords: [
+        'Dermatologista',
+        'São José do Rio Preto',
+        'Psoríase',
+        'Dermatite Atópica',
+        'Estética',
+        'Botox',
+        'Preenchimento',
+        'Dr. Omar Algazal',
+        'Dermatologia Médica'
+    ],
+    authors: [
+        {
+            name: 'Dr. Omar Algazal'
+        }
+    ],
+    creator: 'Dr. Omar Algazal',
+    publisher: 'Dr. Omar Algazal',
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false
+    },
+    openGraph: {
+        title: 'Dr. Omar Algazal - Dermatologista',
+        description: 'Dermatologia Médica e Cosmiatria em São José do Rio Preto.',
+        url: 'https://omardermatologista.com.br',
+        siteName: 'Dr. Omar Algazal',
+        locale: 'pt_BR',
+        type: 'website'
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Dr. Omar Algazal - Dermatologista',
+        description: 'Dermatologia Médica e Cosmiatria em São José do Rio Preto.'
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1
+        }
+    }
 };
 function RootLayout({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
@@ -400,7 +450,7 @@ function RootLayout({ children }) {
                         href: "https://fonts.googleapis.com"
                     }, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 20,
+                        lineNumber: 56,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -409,7 +459,7 @@ function RootLayout({ children }) {
                         crossOrigin: "anonymous"
                     }, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 21,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -417,13 +467,47 @@ function RootLayout({ children }) {
                         rel: "stylesheet"
                     }, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 22,
+                        lineNumber: 58,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
+                        type: "application/ld+json",
+                        dangerouslySetInnerHTML: {
+                            __html: JSON.stringify({
+                                "@context": "https://schema.org",
+                                "@type": "Physician",
+                                "name": "Dr. Omar Algazal",
+                                "image": "https://omardermatologista.com.br/clinica%20hoos.jpg",
+                                "@id": "https://omardermatologista.com.br",
+                                "url": "https://omardermatologista.com.br",
+                                "telephone": "+5517992285084",
+                                "address": {
+                                    "@type": "PostalAddress",
+                                    "streetAddress": "Av. José Munia, 7301 - 4º andar, salas 401 e 402",
+                                    "addressLocality": "São José do Rio Preto",
+                                    "addressRegion": "SP",
+                                    "postalCode": "15090-500",
+                                    "addressCountry": "BR"
+                                },
+                                "geo": {
+                                    "@type": "GeoCoordinates",
+                                    "latitude": -20.835,
+                                    "longitude": -49.397
+                                },
+                                "sameAs": [
+                                    "https://www.instagram.com/omaralgazal.dermato"
+                                ]
+                            })
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/layout.tsx",
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 19,
+                lineNumber: 55,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
@@ -431,36 +515,36 @@ function RootLayout({ children }) {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Header$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 25,
+                        lineNumber: 91,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                         children: children
                     }, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 26,
+                        lineNumber: 92,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Footer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 27,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$FloatingWhatsApp$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 28,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 24,
+                lineNumber: 90,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/layout.tsx",
-        lineNumber: 18,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 }
