@@ -7,7 +7,7 @@ export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
 
 export default async function AppleIcon() {
-  const logoPath = join(process.cwd(), 'public', 'Símbolo-48-removebg-preview.png');
+  const logoPath = join(process.cwd(), 'public', 'Símbolo-48.png');
   let logoBase64 = '';
   try {
     const logoData = await readFile(logoPath);
@@ -25,7 +25,8 @@ export default async function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#23304A',
+          backgroundColor: 'white',
+          borderRadius: '50%',
           overflow: 'hidden',
         }}
       >
