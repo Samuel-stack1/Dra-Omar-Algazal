@@ -607,7 +607,7 @@ function Footer() {
                                 className: "col-span-1 lg:col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "font-heading font-bold text-2xl tracking-tight mb-2",
+                                        className: "font-heading font-bold text-2xl tracking-tight mb-2 text-accent",
                                         children: "DR. OMAR ALGAZAL"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Footer.tsx",
@@ -648,7 +648,7 @@ function Footer() {
                                 className: "col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                        className: "font-heading font-semibold text-lg mb-6",
+                                        className: "font-heading font-semibold text-lg mb-6 text-white",
                                         children: "Links Rápidos"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Footer.tsx",
@@ -719,7 +719,7 @@ function Footer() {
                                 className: "col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                        className: "font-heading font-semibold text-lg mb-6",
+                                        className: "font-heading font-semibold text-lg mb-6 text-white",
                                         children: "Contato"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Footer.tsx",
@@ -843,7 +843,7 @@ function Footer() {
                                 className: "col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                        className: "font-heading font-semibold text-lg mb-6",
+                                        className: "font-heading font-semibold text-lg mb-6 text-white",
                                         children: "Redes Sociais"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Footer.tsx",
