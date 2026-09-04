@@ -7,14 +7,14 @@ import InstagramCarouselSection from '../components/sections/InstagramCarousel';
 import FAQ from '../components/sections/FAQ';
 import Contato from '../components/sections/Contato';
 
-export const revalidate = 86400; // Cache for 24 hours to stay within Behold API rate limit
-
 export default async function Home() {
   let instagramPosts = [];
   let profilePictureUrl = "";
 
   try {
-    const res = await fetch('https://feeds.behold.so/pb1uleK39vkTEyv9OYUj');
+    const res = await fetch('https://feeds.behold.so/pb1uleK39vkTEyv9OYUj', {
+      next: { revalidate: 3600 } // Atualiza o cache de hora em hora
+    });
     if (res.ok) {
       const data = await res.json();
       if (data && data.profilePictureUrl) {
